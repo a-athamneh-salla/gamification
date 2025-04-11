@@ -1,0 +1,1301 @@
+openapi: 3.0.0
+info:
+  title: Salla Gamification API
+  description: API for the Salla Gamification System for merchant onboarding
+  version: 1.0.0
+  contact:
+    email: support@salla.sa
+servers:
+  - url: https://api.salla.com/v1
+    description: Production server
+  - url: https://staging-api.salla.com/v1
+    description: Staging server
+
+tags:
+  - name: Missions
+    description: Mission management endpoints
+  - name: Tasks
+    description: Task management endpoints
+  - name: Progress
+    description: Progress tracking endpoints
+  - name: Rewards
+    description: Reward management endpoints
+  - name: Badges
+    description: Badge management endpoints
+  - name: Leaderboard
+    description: Leaderboard endpoints
+  - name: Admin
+    description: Admin-only endpoints
+
+paths:
+  /api/gamification/missions:
+    get:
+      summary: Get all available missions for current store
+      description: Returns a list of missions available to the current merchant based on their store ID.
+      tags:
+        - Missions
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [all, active, completed, locked]
+          description: Filter missions by status
+      responses:
+        '200':
+          description: List of missions successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Mission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/gamification/missions/{id}:
+    get:
+      summary: Get mission details
+      description: Returns detailed information about a specific mission
+      tags:
+        - Missions
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Mission ID
+      responses:
+        '200':
+          description: Mission details retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MissionDetailed'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/gamification/missions/{id}/ignore:
+    post:
+      summary: Ignore a mission
+      description: Mark a mission as ignored (skipped)
+      tags:
+        - Missions
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Mission ID
+      responses:
+        '200':
+          description: Mission successfully ignored
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Mission has been successfully ignored
+                  data:
+                    $ref: '#/components/schemas/Mission'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/gamification/tasks:
+    get:
+      summary: Get all tasks for current store
+      description: Returns a list of all tasks associated with the current store
+      tags:
+        - Tasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [all, completed, pending]
+          description: Filter tasks by status
+        - in: query
+          name: mission_id
+          schema:
+            type: integer
+            format: int64
+          description: Filter tasks by mission ID
+      responses:
+        '200':
+          description: List of tasks successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/gamification/tasks/{id}/complete:
+    post:
+      summary: Manually complete a task
+      description: Mark a task as completed manually
+      tags:
+        - Tasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Task ID
+      responses:
+        '200':
+          description: Task successfully marked as completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Task has been successfully completed
+                  data:
+                    $ref: '#/components/schemas/Task'
+                  missions_affected:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Mission'
+                  rewards_earned:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reward'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/gamification/progress/summary:
+    get:
+      summary: Get progress summary
+      description: Returns a summary of merchant's progress in the gamification system
+      tags:
+        - Progress
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Progress summary retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProgressSummary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/gamification/rewards:
+    get:
+      summary: Get all rewards earned by current store
+      description: Returns a list of all rewards earned by the current merchant
+      tags:
+        - Rewards
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of rewards successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reward'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/gamification/badges:
+    get:
+      summary: Get all badges earned by current store
+      description: Returns a list of all badges earned by the current merchant
+      tags:
+        - Badges
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of badges successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Badge'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/gamification/leaderboard:
+    get:
+      summary: Get leaderboard data
+      description: Returns leaderboard data for the gamification system
+      tags:
+        - Leaderboard
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: period
+          schema:
+            type: string
+            enum: [all_time, monthly, weekly, daily]
+          description: Time period for leaderboard data
+      responses:
+        '200':
+          description: Leaderboard data successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LeaderboardEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # Admin Routes
+  /api/admin/gamification/tasks:
+    post:
+      summary: Create a new task
+      description: Create a new task in the system
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreate'
+      responses:
+        '201':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Task created successfully
+                  data:
+                    $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/admin/gamification/tasks/{id}:
+    put:
+      summary: Update a task
+      description: Update an existing task
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Task ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdate'
+      responses:
+        '200':
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Task updated successfully
+                  data:
+                    $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      summary: Delete a task
+      description: Delete an existing task
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Task ID
+      responses:
+        '200':
+          description: Task deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Task deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/admin/gamification/missions:
+    post:
+      summary: Create a new mission
+      description: Create a new mission in the system
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MissionCreate'
+      responses:
+        '201':
+          description: Mission created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Mission created successfully
+                  data:
+                    $ref: '#/components/schemas/Mission'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/admin/gamification/missions/{id}:
+    put:
+      summary: Update a mission
+      description: Update an existing mission
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Mission ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MissionUpdate'
+      responses:
+        '200':
+          description: Mission updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Mission updated successfully
+                  data:
+                    $ref: '#/components/schemas/Mission'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      summary: Delete a mission
+      description: Delete an existing mission
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Mission ID
+      responses:
+        '200':
+          description: Mission deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Mission deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/admin/gamification/rules:
+    get:
+      summary: List all rules
+      description: Get a list of all rules in the system
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Rules retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Rule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      summary: Create a new rule
+      description: Create a new rule in the system
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleCreate'
+      responses:
+        '201':
+          description: Rule created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Rule created successfully
+                  data:
+                    $ref: '#/components/schemas/Rule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/admin/gamification/rules/{id}:
+    get:
+      summary: Get rule details
+      description: Get details of a specific rule
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Rule ID
+      responses:
+        '200':
+          description: Rule details retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Rule'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    put:
+      summary: Update a rule
+      description: Update an existing rule
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Rule ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RuleUpdate'
+      responses:
+        '200':
+          description: Rule updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Rule updated successfully
+                  data:
+                    $ref: '#/components/schemas/Rule'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      summary: Delete a rule
+      description: Delete an existing rule
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Rule ID
+      responses:
+        '200':
+          description: Rule deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Rule deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/admin/gamification/rewards:
+    post:
+      summary: Create a new reward
+      description: Create a new reward in the system
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RewardCreate'
+      responses:
+        '201':
+          description: Reward created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Reward created successfully
+                  data:
+                    $ref: '#/components/schemas/Reward'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /api/admin/gamification/rewards/{id}:
+    put:
+      summary: Update a reward
+      description: Update an existing reward
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Reward ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RewardUpdate'
+      responses:
+        '200':
+          description: Reward updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Reward updated successfully
+                  data:
+                    $ref: '#/components/schemas/Reward'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      summary: Delete a reward
+      description: Delete an existing reward
+      tags:
+        - Admin
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Reward ID
+      responses:
+        '200':
+          description: Reward deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Reward deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: The given data was invalid
+              errors:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthenticated
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: You do not have permission to access this resource
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Resource not found
+
+  schemas:
+    Mission:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        title:
+          type: string
+          example: Store Setup Basics
+        description:
+          type: string
+          example: Complete the basic setup tasks for your store
+        icon:
+          type: string
+          example: setup-icon.svg
+        progress:
+          type: integer
+          format: int32
+          example: 50
+        is_completed:
+          type: boolean
+          example: false
+        is_locked:
+          type: boolean
+          example: false
+        tasks_count:
+          type: integer
+          format: int32
+          example: 5
+        tasks_completed:
+          type: integer
+          format: int32
+          example: 2
+
+    MissionDetailed:
+      allOf:
+        - $ref: '#/components/schemas/Mission'
+        - type: object
+          properties:
+            tasks:
+              type: array
+              items:
+                $ref: '#/components/schemas/Task'
+            rewards:
+              type: array
+              items:
+                $ref: '#/components/schemas/Reward'
+            lockers:
+              type: array
+              items:
+                $ref: '#/components/schemas/Locker'
+            rules:
+              type: array
+              items:
+                $ref: '#/components/schemas/Rule'
+
+    MissionCreate:
+      type: object
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+          example: Store Setup Basics
+        description:
+          type: string
+          example: Complete the basic setup tasks for your store
+        icon:
+          type: string
+          example: setup-icon.svg
+        tasks:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1, 2, 3]
+        rewards:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1, 2]
+        start_rules:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1]
+        finish_rules:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [2]
+        lockers:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum: [mission, date]
+              value:
+                type: string
+                example: "1" # mission_id or date string
+
+    MissionUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Store Setup Basics
+        description:
+          type: string
+          example: Complete the basic setup tasks for your store
+        icon:
+          type: string
+          example: setup-icon.svg
+        tasks:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1, 2, 3]
+        rewards:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1, 2]
+        start_rules:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [1]
+        finish_rules:
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: [2]
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        title:
+          type: string
+          example: Add First Product
+        description:
+          type: string
+          example: Add your first product to the store
+        icon:
+          type: string
+          example: product-icon.svg
+        is_completed:
+          type: boolean
+          example: false
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2023-04-10T15:30:45Z"
+        mission_id:
+          type: integer
+          format: int64
+          example: 1
+
+    TaskCreate:
+      type: object
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+          example: Add First Product
+        description:
+          type: string
+          example: Add your first product to the store
+        icon:
+          type: string
+          example: product-icon.svg
+        event_name:
+          type: string
+          example: product_created
+        event_conditions:
+          type: object
+          additionalProperties: true
+          example:
+            product_type: physical
+
+    TaskUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Add First Product
+        description:
+          type: string
+          example: Add your first product to the store
+        icon:
+          type: string
+          example: product-icon.svg
+        event_name:
+          type: string
+          example: product_created
+        event_conditions:
+          type: object
+          additionalProperties: true
+          example:
+            product_type: physical
+
+    Reward:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        type:
+          type: string
+          enum: [points, badge, coupon]
+          example: points
+        value:
+          type: string
+          example: "100"
+        name:
+          type: string
+          example: Setup Points
+        description:
+          type: string
+          example: Points for completing store setup
+        icon:
+          type: string
+          example: points-icon.svg
+        is_claimed:
+          type: boolean
+          example: false
+
+    RewardCreate:
+      type: object
+      required:
+        - type
+        - value
+        - name
+      properties:
+        type:
+          type: string
+          enum: [points, badge, coupon]
+          example: points
+        value:
+          type: string
+          example: "100"
+        name:
+          type: string
+          example: Setup Points
+        description:
+          type: string
+          example: Points for completing store setup
+        icon:
+          type: string
+          example: points-icon.svg
+
+    RewardUpdate:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [points, badge, coupon]
+          example: points
+        value:
+          type: string
+          example: "100"
+        name:
+          type: string
+          example: Setup Points
+        description:
+          type: string
+          example: Points for completing store setup
+        icon:
+          type: string
+          example: points-icon.svg
+
+    Badge:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Setup Master
+        description:
+          type: string
+          example: Completed store setup basics
+        icon:
+          type: string
+          example: badge-icon.svg
+        earned_at:
+          type: string
+          format: date-time
+          example: "2023-04-10T15:30:45Z"
+
+    Rule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Complete All Tasks
+        description:
+          type: string
+          example: Triggers when all tasks in the mission are completed
+        type:
+          type: string
+          enum: [all_tasks_completed, specific_task_completed, time_based, custom]
+          example: all_tasks_completed
+        conditions:
+          type: object
+          additionalProperties: true
+          example:
+            task_ids: [1, 2, 3]
+
+    RuleCreate:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          example: Complete All Tasks
+        description:
+          type: string
+          example: Triggers when all tasks in the mission are completed
+        type:
+          type: string
+          enum: [all_tasks_completed, specific_task_completed, time_based, custom]
+          example: all_tasks_completed
+        conditions:
+          type: object
+          additionalProperties: true
+          example:
+            task_ids: [1, 2, 3]
+
+    RuleUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Complete All Tasks
+        description:
+          type: string
+          example: Triggers when all tasks in the mission are completed
+        type:
+          type: string
+          enum: [all_tasks_completed, specific_task_completed, time_based, custom]
+          example: all_tasks_completed
+        conditions:
+          type: object
+          additionalProperties: true
+          example:
+            task_ids: [1, 2, 3]
+
+    Locker:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        type:
+          type: string
+          enum: [mission, date]
+          example: mission
+        value:
+          type: string
+          example: "1" # mission_id or date string
+
+    ProgressSummary:
+      type: object
+      properties:
+        total_missions:
+          type: integer
+          format: int32
+          example: 10
+        completed_missions:
+          type: integer
+          format: int32
+          example: 3
+        overall_progress:
+          type: integer
+          format: int32
+          example: 30
+        total_tasks:
+          type: integer
+          format: int32
+          example: 25
+        completed_tasks:
+          type: integer
+          format: int32
+          example: 8
+        total_points:
+          type: integer
+          format: int32
+          example: 350
+        badges_earned:
+          type: integer
+          format: int32
+          example: 2
+        next_missions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mission'
+
+    LeaderboardEntry:
+      type: object
+      properties:
+        store_id:
+          type: integer
+          format: int64
+          example: 123
+        store_name:
+          type: string
+          example: Example Store
+        points:
+          type: integer
+          format: int32
+          example: 850
+        missions_completed:
+          type: integer
+          format: int32
+          example: 7
+        rank:
+          type: integer
+          format: int32
+          example: 3
