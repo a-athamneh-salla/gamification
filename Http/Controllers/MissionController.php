@@ -1,12 +1,12 @@
 <?php
 
-namespace Salla\Gamification\Http\Controllers;
+namespace Modules\Gamification\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Salla\Gamification\Facades\Gamification;
-use Salla\Gamification\Http\Resources\MissionResource;
+use Modules\Gamification\Facades\Gamification;
+use Modules\Gamification\Http\Resources\MissionResource;
 
 class MissionController extends Controller
 {

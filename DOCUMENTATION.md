@@ -166,7 +166,7 @@ $mission->tasks()->attach([
 
 ```php
 // Create a locker that requires another mission to be completed
-use Salla\Gamification\Models\Locker;
+use Modules\Gamification\Models\Locker;
 
 Locker::create([
     'mission_id' => $missionId,

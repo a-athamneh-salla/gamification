@@ -1,13 +1,13 @@
 <?php
 
-namespace Salla\Gamification\Repositories;
+namespace Modules\Gamification\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Salla\Gamification\Contracts\MissionRepository;
-use Salla\Gamification\Models\Mission;
-use Salla\Gamification\Models\Locker;
-use Salla\Gamification\Models\StoreProgress;
+use Modules\Gamification\Contracts\MissionRepository;
+use Modules\Gamification\Models\Mission;
+use Modules\Gamification\Models\Locker;
+use Modules\Gamification\Models\StoreProgress;
 
 class EloquentMissionRepository implements MissionRepository
 {
@@ -184,7 +184,7 @@ class EloquentMissionRepository implements MissionRepository
         foreach ($missions as $mission) {
             $taskIds = $mission->tasks->pluck('id')->toArray();
             
-            $taskCompletions = \Salla\Gamification\Models\TaskCompletion::where('store_id', $storeId)
+            $taskCompletions = \Modules\Gamification\Models\TaskCompletion::where('store_id', $storeId)
                 ->where('mission_id', $mission->id)
                 ->whereIn('task_id', $taskIds)
                 ->get()

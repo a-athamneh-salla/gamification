@@ -1,13 +1,13 @@
 <?php
 
-namespace Salla\Gamification\Http\Controllers;
+namespace Modules\Gamification\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Salla\Gamification\Models\Badge;
-use Salla\Gamification\Models\StoreBadge;
-use Salla\Gamification\Http\Resources\BadgeResource;
+use Modules\Gamification\Models\Badge;
+use Modules\Gamification\Models\StoreBadge;
+use Modules\Gamification\Http\Resources\BadgeResource;
 
 class BadgeController extends Controller
 {

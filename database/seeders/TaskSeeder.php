@@ -1,9 +1,9 @@
 <?php
 
-namespace Salla\Gamification\Database\Seeders;
+namespace Modules\Gamification\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Salla\Gamification\Models\Task;
+use Modules\Gamification\Models\Task;
 
 class TaskSeeder extends Seeder
 {

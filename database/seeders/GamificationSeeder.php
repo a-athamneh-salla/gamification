@@ -1,6 +1,6 @@
 <?php
 
-namespace Salla\Gamification\Database\Seeders;
+namespace Modules\Gamification\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 

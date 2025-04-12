@@ -1,11 +1,11 @@
 <?php
 
-namespace Salla\Gamification\Tests\Unit\Repositories;
+namespace Modules\Gamification\Tests\Unit\Repositories;
 
-use Salla\Gamification\Tests\TestCase;
-use Salla\Gamification\Models\Task;
-use Salla\Gamification\Contracts\TaskRepository;
-use Salla\Gamification\Repositories\EloquentTaskRepository;
+use Modules\Gamification\Tests\TestCase;
+use Modules\Gamification\Models\Task;
+use Modules\Gamification\Contracts\TaskRepository;
+use Modules\Gamification\Repositories\EloquentTaskRepository;
 
 class TaskRepositoryTest extends TestCase
 {

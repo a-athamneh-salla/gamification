@@ -1,9 +1,9 @@
 <?php
 
-namespace Salla\Gamification\Tests;
+namespace Modules\Gamification\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Salla\Gamification\Providers\GamificationServiceProvider;
+use Modules\Gamification\Providers\GamificationServiceProvider;
 
 /**
  * Base test case for Gamification package tests
@@ -30,11 +30,11 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         // Set the store model for testing
-        $app['config']->set('gamification.store_model', 'Salla\Gamification\Tests\Models\Store');
+        $app['config']->set('gamification.store_model', 'Modules\Gamification\Tests\Models\Store');
         
         // Configure level-up package for testing
         $app['config']->set('gamification.level_up.enabled', true);
-        $app['config']->set('level-up.user.model', 'Salla\Gamification\Tests\Models\Store');
+        $app['config']->set('level-up.user.model', 'Modules\Gamification\Tests\Models\Store');
         $app['config']->set('level-up.user.foreign_key', 'store_id');
     }
 

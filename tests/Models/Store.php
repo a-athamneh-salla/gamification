@@ -1,6 +1,6 @@
 <?php
 
-namespace Salla\Gamification\Tests\Models;
+namespace Modules\Gamification\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Salla\Gamification\Http\Controllers;
+namespace Modules\Gamification\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Salla\Gamification\Facades\Gamification;
+use Modules\Gamification\Facades\Gamification;
 
 class ProgressController extends Controller
 {

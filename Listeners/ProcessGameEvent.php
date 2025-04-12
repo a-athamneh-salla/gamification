@@ -1,9 +1,9 @@
 <?php
 
-namespace Salla\Gamification\Listeners;
+namespace Modules\Gamification\Listeners;
 
-use Salla\Gamification\Events\GamificationEvent;
-use Salla\Gamification\Services\GamificationService;
+use Modules\Gamification\Events\GamificationEvent;
+use Modules\Gamification\Services\GamificationService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ProcessGameEvent implements ShouldQueue
@@ -11,14 +11,14 @@ class ProcessGameEvent implements ShouldQueue
     /**
      * The gamification service instance.
      *
-     * @var \Salla\Gamification\Services\GamificationService
+     * @var \Modules\Gamification\Services\GamificationService
      */
     protected $gamificationService;
 
     /**
      * Create the event listener.
      *
-     * @param \Salla\Gamification\Services\GamificationService $gamificationService
+     * @param \Modules\Gamification\Services\GamificationService $gamificationService
      * @return void
      */
     public function __construct(GamificationService $gamificationService)
@@ -59,7 +59,7 @@ class ProcessGameEvent implements ShouldQueue
     protected function logEvent(GamificationEvent $event)
     {
         // Create a log entry in the gamification_events_log table
-        \Salla\Gamification\Models\EventLog::create([
+        \Modules\Gamification\Models\EventLog::create([
             'store_id' => $event->storeId,
             'event_name' => $event->eventName,
             'event_payload' => $event->payload,
@@ -78,7 +78,7 @@ class ProcessGameEvent implements ShouldQueue
     {
         // Dispatch events for completed tasks
         foreach ($result['completed_tasks'] as $task) {
-            event(new \Salla\Gamification\Events\TaskCompleted(
+            event(new \Modules\Gamification\Events\TaskCompleted(
                 $storeId,
                 $task['task_id'],
                 $task['mission_id'],
@@ -88,7 +88,7 @@ class ProcessGameEvent implements ShouldQueue
 
         // Dispatch events for completed missions
         foreach ($result['completed_missions'] as $mission) {
-            event(new \Salla\Gamification\Events\MissionCompleted(
+            event(new \Modules\Gamification\Events\MissionCompleted(
                 $storeId,
                 $mission['mission_id'],
                 $mission
@@ -97,7 +97,7 @@ class ProcessGameEvent implements ShouldQueue
 
         // Dispatch events for awarded rewards
         foreach ($result['rewards'] as $reward) {
-            event(new \Salla\Gamification\Events\RewardAwarded(
+            event(new \Modules\Gamification\Events\RewardAwarded(
                 $storeId,
                 $reward['reward_id'],
                 $reward

@@ -1,9 +1,9 @@
 <?php
 
-namespace Salla\Gamification\Database\Seeders;
+namespace Modules\Gamification\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Salla\Gamification\Models\Badge;
+use Modules\Gamification\Models\Badge;
 
 class BadgeSeeder extends Seeder
 {

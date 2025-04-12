@@ -1,12 +1,12 @@
 <?php
 
-namespace Salla\Gamification\Repositories;
+namespace Modules\Gamification\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
-use Salla\Gamification\Contracts\RewardRepository;
-use Salla\Gamification\Models\Reward;
-use Salla\Gamification\Models\Mission;
-use Salla\Gamification\Models\StoreProgress;
+use Modules\Gamification\Contracts\RewardRepository;
+use Modules\Gamification\Models\Reward;
+use Modules\Gamification\Models\Mission;
+use Modules\Gamification\Models\StoreProgress;
 
 class EloquentRewardRepository implements RewardRepository
 {

@@ -3,10 +3,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\DashboardApi\Http\Middleware\TokenableMiddleware;
-use Salla\Gamification\Http\Controllers\TaskController;
-use Salla\Gamification\Http\Controllers\MissionController;
-use Salla\Gamification\Http\Controllers\RewardController;
-// use Salla\Gamification\Http\Controllers\RuleController;
+use Modules\Gamification\Http\Controllers\TaskController;
+use Modules\Gamification\Http\Controllers\MissionController;
+use Modules\Gamification\Http\Controllers\RewardController;
+// use Modules\Gamification\Http\Controllers\RuleController;
 
 
 

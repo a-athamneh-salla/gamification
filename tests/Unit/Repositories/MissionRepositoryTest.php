@@ -1,14 +1,14 @@
 <?php
 
-namespace Salla\Gamification\Tests\Unit\Repositories;
+namespace Modules\Gamification\Tests\Unit\Repositories;
 
-use Salla\Gamification\Tests\TestCase;
-use Salla\Gamification\Models\Mission;
-use Salla\Gamification\Models\Task;
-use Salla\Gamification\Models\Locker;
-use Salla\Gamification\Models\StoreProgress;
-use Salla\Gamification\Tests\Models\Store;
-use Salla\Gamification\Contracts\MissionRepository;
+use Modules\Gamification\Tests\TestCase;
+use Modules\Gamification\Models\Mission;
+use Modules\Gamification\Models\Task;
+use Modules\Gamification\Models\Locker;
+use Modules\Gamification\Models\StoreProgress;
+use Modules\Gamification\Tests\Models\Store;
+use Modules\Gamification\Contracts\MissionRepository;
 
 class MissionRepositoryTest extends TestCase
 {
@@ -295,7 +295,7 @@ class MissionRepositoryTest extends TestCase
         ]);
         
         // Mark task1 as completed
-        \Salla\Gamification\Models\TaskCompletion::create([
+        \Modules\Gamification\Models\TaskCompletion::create([
             'store_id' => $this->store->id,
             'mission_id' => $mission->id,
             'task_id' => $task1->id,
@@ -326,7 +326,7 @@ class MissionRepositoryTest extends TestCase
         } else {
             // If completion is null, we can't check its status, so just assert it's not completed
             $this->assertFalse(
-                \Salla\Gamification\Models\TaskCompletion::where('task_id', $taskTwo->id)
+                \Modules\Gamification\Models\TaskCompletion::where('task_id', $taskTwo->id)
                     ->where('store_id', $this->store->id)
                     ->where('status', 'completed')
                     ->exists()

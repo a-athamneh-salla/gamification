@@ -1,17 +1,17 @@
 <?php
 
-namespace Salla\Gamification\Tests\Unit\Services;
+namespace Modules\Gamification\Tests\Unit\Services;
 
-use Salla\Gamification\Tests\TestCase;
-use Salla\Gamification\Services\GamificationService;
-use Salla\Gamification\Models\Task;
-use Salla\Gamification\Models\Mission;
-use Salla\Gamification\Models\Reward;
-use Salla\Gamification\Models\TaskCompletion;
-use Salla\Gamification\Models\StoreProgress;
-use Salla\Gamification\Tests\Models\Store;
+use Modules\Gamification\Tests\TestCase;
+use Modules\Gamification\Services\GamificationService;
+use Modules\Gamification\Models\Task;
+use Modules\Gamification\Models\Mission;
+use Modules\Gamification\Models\Reward;
+use Modules\Gamification\Models\TaskCompletion;
+use Modules\Gamification\Models\StoreProgress;
+use Modules\Gamification\Tests\Models\Store;
 use Illuminate\Support\Facades\Event;
-use Salla\Gamification\Events\TaskCompleted;
+use Modules\Gamification\Events\TaskCompleted;
 
 class GamificationServiceTest extends TestCase
 {

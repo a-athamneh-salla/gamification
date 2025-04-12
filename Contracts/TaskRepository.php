@@ -1,10 +1,10 @@
 <?php
 
-namespace Salla\Gamification\Contracts;
+namespace Modules\Gamification\Contracts;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Salla\Gamification\Models\Task;
+use Modules\Gamification\Models\Task;
 
 interface TaskRepository
 {

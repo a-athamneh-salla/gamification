@@ -1,6 +1,6 @@
 <?php
 
-namespace Salla\Gamification\Facades;
+namespace Modules\Gamification\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Illuminate\Support\Collection getStoreRewards(int $storeId)
  * @method static bool ignoreMission(int $missionId, int $storeId)
  * 
- * @see \Salla\Gamification\Services\GamificationService
+ * @see \Modules\Gamification\Services\GamificationService
  */
 class Gamification extends Facade
 {

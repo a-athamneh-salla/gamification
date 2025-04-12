@@ -1,6 +1,6 @@
 <?php
 
-namespace Salla\Gamification\Models;
+namespace Modules\Gamification\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

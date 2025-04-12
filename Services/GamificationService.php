@@ -1,52 +1,52 @@
 <?php
 
-namespace Salla\Gamification\Services;
+namespace Modules\Gamification\Services;
 
 use Illuminate\Support\Collection;
-use Salla\Gamification\Contracts\TaskRepository;
-use Salla\Gamification\Contracts\MissionRepository;
-use Salla\Gamification\Contracts\RuleRepository;
-use Salla\Gamification\Contracts\RewardRepository;
-use Salla\Gamification\Models\TaskCompletion;
-use Salla\Gamification\Models\StoreProgress;
+use Modules\Gamification\Contracts\TaskRepository;
+use Modules\Gamification\Contracts\MissionRepository;
+use Modules\Gamification\Contracts\RuleRepository;
+use Modules\Gamification\Contracts\RewardRepository;
+use Modules\Gamification\Models\TaskCompletion;
+use Modules\Gamification\Models\StoreProgress;
 
 class GamificationService
 {
     /**
      * The task repository instance.
      *
-     * @var \Salla\Gamification\Contracts\TaskRepository
+     * @var \Modules\Gamification\Contracts\TaskRepository
      */
     protected $taskRepository;
     
     /**
      * The mission repository instance.
      *
-     * @var \Salla\Gamification\Contracts\MissionRepository
+     * @var \Modules\Gamification\Contracts\MissionRepository
      */
     protected $missionRepository;
     
     /**
      * The rule repository instance.
      *
-     * @var \Salla\Gamification\Contracts\RuleRepository
+     * @var \Modules\Gamification\Contracts\RuleRepository
      */
     protected $ruleRepository;
     
     /**
      * The reward repository instance.
      *
-     * @var \Salla\Gamification\Contracts\RewardRepository
+     * @var \Modules\Gamification\Contracts\RewardRepository
      */
     protected $rewardRepository;
     
     /**
      * Create a new gamification service instance.
      *
-     * @param \Salla\Gamification\Contracts\TaskRepository $taskRepository
-     * @param \Salla\Gamification\Contracts\MissionRepository $missionRepository
-     * @param \Salla\Gamification\Contracts\RuleRepository $ruleRepository
-     * @param \Salla\Gamification\Contracts\RewardRepository $rewardRepository
+     * @param \Modules\Gamification\Contracts\TaskRepository $taskRepository
+     * @param \Modules\Gamification\Contracts\MissionRepository $missionRepository
+     * @param \Modules\Gamification\Contracts\RuleRepository $ruleRepository
+     * @param \Modules\Gamification\Contracts\RewardRepository $rewardRepository
      * @return void
      */
     public function __construct(

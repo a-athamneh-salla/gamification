@@ -1,11 +1,11 @@
 <?php
 
-namespace Salla\Gamification\Database\Seeders;
+namespace Modules\Gamification\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Salla\Gamification\Models\Mission;
-use Salla\Gamification\Models\Task;
-use Salla\Gamification\Models\Locker;
+use Modules\Gamification\Models\Mission;
+use Modules\Gamification\Models\Task;
+use Modules\Gamification\Models\Locker;
 
 class MissionSeeder extends Seeder
 {

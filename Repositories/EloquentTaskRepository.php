@@ -1,11 +1,11 @@
 <?php
 
-namespace Salla\Gamification\Repositories;
+namespace Modules\Gamification\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Salla\Gamification\Contracts\TaskRepository;
-use Salla\Gamification\Models\Task;
+use Modules\Gamification\Contracts\TaskRepository;
+use Modules\Gamification\Models\Task;
 
 class EloquentTaskRepository implements TaskRepository
 {

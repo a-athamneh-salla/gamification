@@ -1,6 +1,6 @@
 <?php
 
-namespace Salla\Gamification\Http\Resources;
+namespace Modules\Gamification\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

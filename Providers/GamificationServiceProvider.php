@@ -1,21 +1,21 @@
 <?php
 
-namespace Salla\Gamification\Providers;
+namespace Modules\Gamification\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use Salla\Gamification\Contracts\TaskRepository;
-use Salla\Gamification\Contracts\MissionRepository;
-use Salla\Gamification\Contracts\RuleRepository;
-use Salla\Gamification\Contracts\RewardRepository;
-use Salla\Gamification\Repositories\EloquentTaskRepository;
-use Salla\Gamification\Repositories\EloquentMissionRepository;
-use Salla\Gamification\Repositories\EloquentRuleRepository;
-use Salla\Gamification\Repositories\EloquentRewardRepository;
-use Salla\Gamification\Services\GamificationService;
-use Salla\Gamification\Events\GamificationEvent;
-use Salla\Gamification\Listeners\ProcessGameEvent;
-use Salla\Gamification\Providers\RouteServiceProvider;
+use Modules\Gamification\Contracts\TaskRepository;
+use Modules\Gamification\Contracts\MissionRepository;
+use Modules\Gamification\Contracts\RuleRepository;
+use Modules\Gamification\Contracts\RewardRepository;
+use Modules\Gamification\Repositories\EloquentTaskRepository;
+use Modules\Gamification\Repositories\EloquentMissionRepository;
+use Modules\Gamification\Repositories\EloquentRuleRepository;
+use Modules\Gamification\Repositories\EloquentRewardRepository;
+use Modules\Gamification\Services\GamificationService;
+use Modules\Gamification\Events\GamificationEvent;
+use Modules\Gamification\Listeners\ProcessGameEvent;
+use Modules\Gamification\Providers\RouteServiceProvider;
 
 /**
  * Gamification Service Provider
@@ -42,7 +42,8 @@ class GamificationServiceProvider extends ServiceProvider
         ], 'gamification-migrations');
 
         // Load routes
-        // $this->loadRoutesFrom(__DIR__.'/routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
 
         // Register event listeners
         Event::listen(
@@ -60,7 +61,7 @@ class GamificationServiceProvider extends ServiceProvider
     {
         // Merge config
         $this->mergeConfigFrom(
-            __DIR__.'/config/gamification.php', 'gamification'
+            __DIR__.'/../config/gamification.php', 'gamification'
         );
 
         // Bind repositories

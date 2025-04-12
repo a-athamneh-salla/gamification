@@ -1,11 +1,11 @@
 <?php
 
-namespace Salla\Gamification\Repositories;
+namespace Modules\Gamification\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
-use Salla\Gamification\Contracts\RuleRepository;
-use Salla\Gamification\Models\Rule;
-use Salla\Gamification\Models\Mission;
+use Modules\Gamification\Contracts\RuleRepository;
+use Modules\Gamification\Models\Rule;
+use Modules\Gamification\Models\Mission;
 
 class EloquentRuleRepository implements RuleRepository
 {
@@ -155,7 +155,7 @@ class EloquentRuleRepository implements RuleRepository
                 return false; // No tasks to complete
             }
             
-            $completedTasks = \Salla\Gamification\Models\TaskCompletion::where('store_id', $storeId)
+            $completedTasks = \Modules\Gamification\Models\TaskCompletion::where('store_id', $storeId)
                 ->where('mission_id', $mission->id)
                 ->where('status', 'completed')
                 ->count();

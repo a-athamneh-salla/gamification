@@ -34,7 +34,7 @@ The Salla Gamification System is a comprehensive solution for implementing gamif
 composer require salla/gamification
 
 # Publish configuration
-php artisan vendor:publish --provider="Salla\Gamification\Providers\GamificationServiceProvider"
+php artisan vendor:publish --provider="Modules\Gamification\Providers\GamificationServiceProvider"
 
 # Run migrations
 php artisan migrate
@@ -155,7 +155,7 @@ Lock missions until prerequisites are completed:
 
 ```php
 // Create a locker that requires another mission to be completed first
-use Salla\Gamification\Models\Locker;
+use Modules\Gamification\Models\Locker;
 
 Locker::create([
     'mission_id' => $missionId,

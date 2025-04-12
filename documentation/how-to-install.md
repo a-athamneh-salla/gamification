@@ -25,7 +25,7 @@ composer require salla/gamification
 ### Step 2: Publish Configuration File
 
 ```bash
-php artisan vendor:publish --provider="Salla\Gamification\Providers\GamificationServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Modules\Gamification\Providers\GamificationServiceProvider" --tag="config"
 ```
 
 This will create a new configuration file at `config/gamification.php` where you can customize the gamification settings.
@@ -82,8 +82,8 @@ return [
 Your Store/Tenant model should implement the necessary traits and interfaces to work with the gamification system:
 
 ```php
-use Salla\Gamification\Traits\HasGamification;
-use Salla\Gamification\Contracts\GamificationTarget;
+use Modules\Gamification\Traits\HasGamification;
+use Modules\Gamification\Contracts\GamificationTarget;
 
 class Store extends Model implements GamificationTarget
 {
@@ -98,7 +98,7 @@ class Store extends Model implements GamificationTarget
 To make your application events work with the gamification system, you need to dispatch them through the gamification event system:
 
 ```php
-use Salla\Gamification\Events\GamificationEvent;
+use Modules\Gamification\Events\GamificationEvent;
 
 // Example: When a product is created
 event(new GamificationEvent('product_created', $store->id, [

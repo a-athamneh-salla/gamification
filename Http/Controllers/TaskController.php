@@ -1,28 +1,28 @@
 <?php
 
-namespace Salla\Gamification\Http\Controllers;
+namespace Modules\Gamification\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Salla\Gamification\Contracts\TaskRepository;
-use Salla\Gamification\Models\Task;
-use Salla\Gamification\Models\TaskCompletion;
-use Salla\Gamification\Http\Resources\TaskResource;
+use Modules\Gamification\Contracts\TaskRepository;
+use Modules\Gamification\Models\Task;
+use Modules\Gamification\Models\TaskCompletion;
+use Modules\Gamification\Http\Resources\TaskResource;
 
 class TaskController extends Controller
 {
     /**
      * The task repository instance.
      *
-     * @var \Salla\Gamification\Contracts\TaskRepository
+     * @var \Modules\Gamification\Contracts\TaskRepository
      */
     protected $taskRepository;
 
     /**
      * Create a new controller instance.
      *
-     * @param \Salla\Gamification\Contracts\TaskRepository $taskRepository
+     * @param \Modules\Gamification\Contracts\TaskRepository $taskRepository
      * @return void
      */
     public function __construct(TaskRepository $taskRepository)

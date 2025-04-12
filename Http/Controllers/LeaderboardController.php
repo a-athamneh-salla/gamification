@@ -1,12 +1,12 @@
 <?php
 
-namespace Salla\Gamification\Http\Controllers;
+namespace Modules\Gamification\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cache;
-use Salla\Gamification\Contracts\TaskRepository;
+use Modules\Gamification\Contracts\TaskRepository;
 
 class LeaderboardController extends Controller
 {

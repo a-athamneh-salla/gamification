@@ -1,27 +1,27 @@
 <?php
 
-namespace Salla\Gamification\Http\Controllers;
+namespace Modules\Gamification\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Salla\Gamification\Contracts\RewardRepository;
-use Salla\Gamification\Facades\Gamification;
-use Salla\Gamification\Http\Resources\RewardResource;
+use Modules\Gamification\Contracts\RewardRepository;
+use Modules\Gamification\Facades\Gamification;
+use Modules\Gamification\Http\Resources\RewardResource;
 
 class RewardController extends Controller
 {
     /**
      * The reward repository instance.
      *
-     * @var \Salla\Gamification\Contracts\RewardRepository
+     * @var \Modules\Gamification\Contracts\RewardRepository
      */
     protected $rewardRepository;
 
     /**
      * Create a new controller instance.
      *
-     * @param \Salla\Gamification\Contracts\RewardRepository $rewardRepository
+     * @param \Modules\Gamification\Contracts\RewardRepository $rewardRepository
      * @return void
      */
     public function __construct(RewardRepository $rewardRepository)

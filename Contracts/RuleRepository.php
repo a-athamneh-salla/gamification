@@ -1,10 +1,10 @@
 <?php
 
-namespace Salla\Gamification\Contracts;
+namespace Modules\Gamification\Contracts;
 
 use Illuminate\Database\Eloquent\Collection;
-use Salla\Gamification\Models\Rule;
-use Salla\Gamification\Models\Mission;
+use Modules\Gamification\Models\Rule;
+use Modules\Gamification\Models\Mission;
 
 interface RuleRepository
 {
