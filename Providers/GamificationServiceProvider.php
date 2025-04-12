@@ -33,17 +33,17 @@ class GamificationServiceProvider extends ServiceProvider
     {
         // Publish configuration
         $this->publishes([
-            __DIR__.'/config/gamification.php' => config_path('gamification.php'),
+            __DIR__.'/../config/gamification.php' => config_path('gamification.php'),
         ], 'gamification-config');
 
         // Publish migrations
         $this->publishes([
-            __DIR__.'/database/migrations/' => database_path('migrations'),
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
         ], 'gamification-migrations');
 
         // Load routes
-        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
-        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         // Register event listeners
         Event::listen(
