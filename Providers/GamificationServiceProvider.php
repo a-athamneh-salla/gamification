@@ -43,7 +43,7 @@ class GamificationServiceProvider extends ServiceProvider
 
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
-        $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/api-dashboard.php');
 
         // Register event listeners
         Event::listen(

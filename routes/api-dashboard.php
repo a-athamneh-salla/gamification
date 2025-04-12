@@ -12,7 +12,7 @@ use Modules\Gamification\Http\Controllers\RewardController;
 
 Route::prefix('api/admin/gamification')
     ->as('api.marketing_integration.')
-    ->middleware(['api', 'admin', TokenableMiddleware::class])->group(function () {
+    ->middleware(['api', TokenableMiddleware::class])->group(function () {
         // Admin Tasks Management
         Route::apiResource('tasks', TaskController::class)->except(['index', 'show']);
 
