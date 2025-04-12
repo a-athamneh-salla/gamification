@@ -2,6 +2,8 @@
 
 This document provides step-by-step instructions for installing and configuring the Salla Gamification System in your Laravel application.
 
+**Author**: Ahmad Athamneh <a.alathamneh@salla.sa>
+
 ## Prerequisites
 
 Before installing the Salla Gamification System, ensure your environment meets the following requirements:

@@ -7,6 +7,7 @@ use Salla\Gamification\Http\Controllers\RewardController;
 use Salla\Gamification\Http\Controllers\ProgressController;
 use Salla\Gamification\Http\Controllers\BadgeController;
 use Salla\Gamification\Http\Controllers\LeaderboardController;
+use Salla\Gamification\Http\Controllers\RuleController;
 
 /*
 |--------------------------------------------------------------------------

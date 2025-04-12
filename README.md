@@ -204,10 +204,14 @@ If you encounter issues with the tests:
 The Salla Gamification System follows a service-repository pattern:
 
 ```ini
-src/
+/
   ├── Contracts/         # Interfaces for repositories
   ├── Events/            # Event classes for system events
+  ├── Facades/           # Service Facades
   ├── Http/              # Controllers and API resources
+  │    ├── Controllers/  # API Controllers
+  │    ├── Resources/    # API Resources
+  │    └── Requests/     # Form Requests
   ├── Listeners/         # Event listeners
   ├── Models/            # Eloquent models
   ├── Repositories/      # Repository implementations
@@ -237,3 +241,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 5. Open a Pull Request
 
 For more detailed information about the system, please refer to the [DOCUMENTATION.md](DOCUMENTATION.md) file.
+
+## Author
+
+Ahmad Athamneh <a.alathamneh@salla.sa>

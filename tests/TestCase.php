@@ -5,6 +5,11 @@ namespace Salla\Gamification\Tests;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Salla\Gamification\GamificationServiceProvider;
 
+/**
+ * Base test case for Gamification package tests
+ * 
+ * @author Ahmad Athamneh <a.alathamneh@salla.sa>
+ */
 abstract class TestCase extends BaseTestCase
 {
     protected function getPackageProviders($app)
@@ -40,12 +45,12 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         
-        // Run the migrations
+        // Run the migrations (update path after restructuring)
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         
         // Also run the level-up migrations if we're using the package
         if (config('gamification.level_up.enabled')) {
-            $this->loadMigrationsFrom(dirname(__DIR__, 3) . '/vendor/cjmellor/level-up/database/migrations');
+            $this->loadMigrationsFrom(dirname(__DIR__, 2) . '/vendor/cjmellor/level-up/database/migrations');
         }
     }
 }
