@@ -3,7 +3,7 @@
 namespace Salla\Gamification\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Salla\Gamification\GamificationServiceProvider;
+use Salla\Gamification\Providers\GamificationServiceProvider;
 
 /**
  * Base test case for Gamification package tests

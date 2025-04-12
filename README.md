@@ -34,7 +34,7 @@ The Salla Gamification System is a comprehensive solution for implementing gamif
 composer require salla/gamification
 
 # Publish configuration
-php artisan vendor:publish --provider="Salla\Gamification\GamificationServiceProvider"
+php artisan vendor:publish --provider="Salla\Gamification\Providers\GamificationServiceProvider"
 
 # Run migrations
 php artisan migrate

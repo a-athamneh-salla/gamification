@@ -1,6 +1,6 @@
 <?php
 
-namespace Salla\Gamification;
+namespace Salla\Gamification\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
@@ -15,6 +15,7 @@ use Salla\Gamification\Repositories\EloquentRewardRepository;
 use Salla\Gamification\Services\GamificationService;
 use Salla\Gamification\Events\GamificationEvent;
 use Salla\Gamification\Listeners\ProcessGameEvent;
+use Salla\Gamification\Providers\RouteServiceProvider;
 
 /**
  * Gamification Service Provider
@@ -41,7 +42,7 @@ class GamificationServiceProvider extends ServiceProvider
         ], 'gamification-migrations');
 
         // Load routes
-        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
+        // $this->loadRoutesFrom(__DIR__.'/routes/api.php');
 
         // Register event listeners
         Event::listen(
@@ -82,6 +83,8 @@ class GamificationServiceProvider extends ServiceProvider
         if (config('gamification.level_up.enabled')) {
             $this->registerLevelUpIntegration();
         }
+        $this->app->register(RouteServiceProvider::class);
+
     }
 
     /**

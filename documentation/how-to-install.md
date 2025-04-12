@@ -25,7 +25,7 @@ composer require salla/gamification
 ### Step 2: Publish Configuration File
 
 ```bash
-php artisan vendor:publish --provider="Salla\Gamification\GamificationServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Salla\Gamification\Providers\GamificationServiceProvider" --tag="config"
 ```
 
 This will create a new configuration file at `config/gamification.php` where you can customize the gamification settings.

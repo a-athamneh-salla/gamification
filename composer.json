@@ -36,7 +36,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Salla\\Gamification\\GamificationServiceProvider"
+                "Salla\\Gamification\\Providers\\GamificationServiceProvider"
             ],
             "aliases": {
                 "Gamification": "Salla\\Gamification\\Facades\\Gamification"
