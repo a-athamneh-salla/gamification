@@ -43,7 +43,7 @@ This will create all necessary database tables for the gamification system.
 If you want to seed your database with sample data for testing:
 
 ```bash
-php artisan db:seed --class="Salla\\Gamification\\Database\\Seeders\\GamificationSeeder"
+php artisan db:seed --class="Modules\\Gamification\\Database\\Seeders\\GamificationSeeder"
 ```
 
 ## Configuration

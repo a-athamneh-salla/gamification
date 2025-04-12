@@ -25,21 +25,21 @@
     },
     "autoload": {
         "psr-4": {
-            "Salla\\Gamification\\": "./"
+            "Modules\\Gamification\\": "./"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Salla\\Gamification\\Tests\\": "tests/"
+            "Modules\\Gamification\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Salla\\Gamification\\Providers\\GamificationServiceProvider"
+                "Modules\\Gamification\\Providers\\GamificationServiceProvider"
             ],
             "aliases": {
-                "Gamification": "Salla\\Gamification\\Facades\\Gamification"
+                "Gamification": "Modules\\Gamification\\Facades\\Gamification"
             }
         }
     }
