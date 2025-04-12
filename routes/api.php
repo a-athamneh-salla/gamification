@@ -17,23 +17,23 @@ Route::group([
     'middleware' => config('gamification.api.middleware', ['api', 'auth:api']),
 ], function () {
     // Mission endpoints
-    Route::get('/missions', 'MissionController@index');
-    Route::get('/missions/{id}', 'MissionController@show');
-    Route::post('/missions/{id}/ignore', 'MissionController@ignore');
+    Route::get('/missions', 'Modules\Gamification\Http\Controllers\MissionController@index');
+    Route::get('/missions/{id}', 'Modules\Gamification\Http\Controllers\MissionController@show');
+    Route::post('/missions/{id}/ignore', 'Modules\Gamification\Http\Controllers\MissionController@ignore');
     
     // Progress endpoints
-    Route::get('/progress/summary', 'ProgressController@summary');
+    Route::get('/progress/summary', 'Modules\Gamification\Http\Controllers\ProgressController@summary');
     
     // Task endpoints
-    Route::get('/tasks', 'TaskController@index');
-    Route::post('/tasks/{id}/complete', 'TaskController@completeManually');
+    Route::get('/tasks', 'Modules\Gamification\Http\Controllers\TaskController@index');
+    Route::post('/tasks/{id}/complete', 'Modules\Gamification\Http\Controllers\TaskController@completeManually');
     
     // Reward endpoints
-    Route::get('/rewards', 'RewardController@index');
+    Route::get('/rewards', 'Modules\Gamification\Http\Controllers\RewardController@index');
     
     // Badge endpoints
-    Route::get('/badges', 'BadgeController@index');
+    Route::get('/badges', 'Modules\Gamification\Http\Controllers\BadgeController@index');
     
     // Leaderboard endpoints
-    Route::get('/leaderboard', 'LeaderboardController@index');
+    Route::get('/leaderboard', 'Modules\Gamification\Http\Controllers\LeaderboardController@index');
 });
