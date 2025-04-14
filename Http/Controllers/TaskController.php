@@ -204,6 +204,27 @@ class TaskController extends Controller
     }
 
     /**
+     * Display the specified task
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id): JsonResponse
+    {
+        $task = $this->taskRepository->find($id);
+        
+        if (!$task) {
+            return response()->json([
+                'message' => 'Task not found.',
+            ], 404);
+        }
+        
+        return response()->json([
+            'data' => new TaskResource($task),
+        ]);
+    }
+
+    /**
      * Get a list of available event types for tasks
      *
      * @return \Illuminate\Http\JsonResponse

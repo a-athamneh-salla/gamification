@@ -17,7 +17,7 @@ Route::prefix('api/gamification')
         Route::get('tasks/event-types', [TaskController::class, 'getEventTypes']);
 
         // Admin Tasks Management
-        Route::apiResource('tasks', TaskController::class)->except(['index', 'show']);
+        Route::apiResource('tasks', TaskController::class)->except(['index']);
 
         // Admin Missions Management
         Route::apiResource('missions', MissionController::class)->except(['index', 'show']);

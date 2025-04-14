@@ -60,9 +60,9 @@ class GamificationServiceProvider extends ServiceProvider
     public function register()
     {
         // Merge config
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/gamification.php', 'gamification'
-        );
+        // $this->mergeConfigFrom(
+        //     __DIR__.'/../config/gamification.php', 'gamification'
+        // );
 
         // Bind repositories
         $this->app->bind(TaskRepository::class, EloquentTaskRepository::class);
